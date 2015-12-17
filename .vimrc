@@ -1,4 +1,4 @@
-"Vundle setup
+" Vundle setup
 " ============================================================================
 " to install: vim +PluginInstall +qall
 
@@ -71,17 +71,26 @@ set hlsearch   " highlight search
 set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
 
-:set backspace=2 "Allow backspace, wtf
+set backspace=2 "Allow backspace, wtf
+set scrolloff=5 "Buffer 4 lines while scrolling
+
 
 " set leader key
 let mapleader = ","
 let maplocalleader = ","
 
-" buffers
+" buffers ctrl + jkl
 map <C-j> <Esc>:bp<CR>
 map <C-k> <Esc>:bn<CR>
 map <C-d> <Esc>:bd<CR>
+"close buffer but no split
+map <C-x> <Esc>:b#<bar>bd#<CR>
+" Ag search files
+map <C-o> <Esc>:Ag<Space>
 
+"<c-l> clear the highlight as well as redraw
+nnoremap <C-L> :nohls<CR><C-L>
+inoremap <C-L> <C-O>:nohls<CR>
 
 " Show extra space in red
 highlight ExtraWhitespace ctermbg=red guibg=red
@@ -155,13 +164,12 @@ set pastetoggle=<F3> " hit this before pasting to fix indentation
 nnoremap <F3> :set invpaste paste?<CR>
 set pastetoggle=<F3>
 
-" Use ag over grep 
-if executable('ag')
-" Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-" Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
+" Set Swap directory
+set directory=~/.backup/vim/swap
 
+" Persistent undo
+" ============================================================================
+set undofile                " Save undo's after file closes
+set undodir=/tmp " where to save undo histories
+set undolevels=1000         " How many undos
+set undoreload=10000        " number of lines to save for undo
