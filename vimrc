@@ -74,6 +74,9 @@ set smartcase  " Ignore case when searching lowercase
 set backspace=2 "Allow backspace, wtf
 set scrolloff=5 "Buffer 4 lines while scrolling
 
+set textwidth=80 "Show past 80 characters
+set colorcolumn=+1
+
 
 " set leader key
 let mapleader = ","
