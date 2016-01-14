@@ -1,46 +1,42 @@
 " Vundle setup
 " ============================================================================
-" to install: vim +PluginInstall +qall
+" to install: vim +PlugInstall +qall
 
-set nocompatible              " be iMproved, required
-filetype off                  " required
+call plug#begin('~/.vim/plugged')
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" plugins
+" Plugins
 " ============================================================================
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'kien/ctrlp.vim'                      " Fuzzy finder
-Plugin 'tpope/vim-commentary'
+Plug 'altercation/vim-colors-solarized'
+Plug 'gosukiwi/vim-atom-dark'
+Plug 'kien/ctrlp.vim'                      " Fuzzy finder
+Plug 'tpope/vim-commentary'
 
-"Plugin 'fatih/vim-go'                        " Go development plugin
-Plugin 'majutsushi/tagbar'                   " class outline viewer
+"Plug 'fatih/vim-go'                        " Go development plugin
+Plug 'majutsushi/tagbar'                   " class outline viewer
 
 " snippets (all 4 needed)
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
-Plugin 'honza/vim-snippets'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
+Plug 'ludovicchabant/vim-gutentags' "Find functions in other files
 
 " github commment (both needed)
-" Plugin 'mmozuras/vim-github-comment'
-" Plugin 'mattn/webapi-vim'
+" Plug 'mmozuras/vim-github-comment'
+" Plug 'mattn/webapi-vim'
 
-" tag line
-Plugin 'itchyny/lightline.vim'
-" auto pair () and {}
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'scrooloose/nerdtree'
-Plugin 'rking/ag.vim' 
+Plug 'itchyny/lightline.vim'        " tag line
+Plug 'jiangmiao/auto-pairs'         " auto pair () and {}
+Plug 'scrooloose/nerdtree'
+Plug 'rking/ag.vim' 
 
-call vundle#end()            " required
+Plug 'Shougo/deoplete.nvim'         "auto complete
+
+call plug#end()
+
+" vundle stuff? maybe not needed anymore
+" set nocompatible              " be iMproved, required
+" filetype off                  " required
 
 filetype plugin indent on
 syntax enable
@@ -101,7 +97,8 @@ match ExtraWhitespace /\s\+$/
 "
 " remove whitespace with ,w
 :noremap <leader>w :%s/\s\+$//<CR>
-"
+
+" create splits
 :noremap <leader>v :vsp<CR>:enew<CR>:pwd<CR>
 :noremap <leader>s :split<CR>:enew<CR>:pwd<CR>
 
@@ -116,6 +113,9 @@ match ExtraWhitespace /\s\+$/
 :noremap <leader>H <C-w>H
 :noremap <leader>J <C-w>J
 :noremap <leader>K <C-w>K
+
+" leader key fixes indentation
+:noremap <leader>i mzgg=G`z
 
 " CtrlP
 " ============================================================================
@@ -160,6 +160,7 @@ set background=dark
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
 colorscheme solarized
+" colorscheme atom-dark
 
 map <F1> :e.<CR>
 nnoremap <F2> :set nonumber!<CR>
@@ -176,3 +177,8 @@ set undofile                " Save undo's after file closes
 set undodir=/tmp " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
+
+set path=$PWD/** " Set search path so it will look in project directory
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
