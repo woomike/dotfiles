@@ -7,7 +7,7 @@ call plug#begin('~/.vim/plugged')
 " Plugins
 " ============================================================================
 Plug 'altercation/vim-colors-solarized'
-Plug 'gosukiwi/vim-atom-dark'
+Plug 'joshdick/onedark.vim'
 Plug 'kien/ctrlp.vim'                      " Fuzzy finder
 Plug 'tpope/vim-commentary'
 
@@ -19,7 +19,7 @@ Plug 'MarcWeber/vim-addon-mw-utils'
 Plug 'tomtom/tlib_vim'
 Plug 'garbas/vim-snipmate'
 Plug 'honza/vim-snippets'
-Plug 'ludovicchabant/vim-gutentags' "Find functions in other files
+" Plug 'ludovicchabant/vim-gutentags' "Find functions in other files
 
 " github commment (both needed)
 " Plug 'mmozuras/vim-github-comment'
@@ -28,9 +28,10 @@ Plug 'ludovicchabant/vim-gutentags' "Find functions in other files
 Plug 'itchyny/lightline.vim'        " tag line
 Plug 'jiangmiao/auto-pairs'         " auto pair () and {}
 Plug 'scrooloose/nerdtree'
-Plug 'rking/ag.vim' 
+Plug 'rking/ag.vim'
+Plug 'airblade/vim-gitgutter'       " Show +- git diff
 
-Plug 'Shougo/deoplete.nvim'         "auto complete
+" Plug 'Shougo/deoplete.nvim'         "auto complete
 
 call plug#end()
 
@@ -41,10 +42,18 @@ call plug#end()
 filetype plugin indent on
 syntax enable
 
+set background=dark
+" solarized options
+" let g:solarized_visibility = "high"
+" let g:solarized_contrast = "high"
+" colorscheme solarized
+colorscheme onedark
+
 " everything I copy goes to the system's clipboard
 set clipboard=unnamed
 
 :imap jj <Esc>
+:imap kk <Esc>
 " hh is easier than esc
 inoremap hh <ESC>
 " ; is easier than :
@@ -68,11 +77,14 @@ set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
 
 set backspace=2 "Allow backspace, wtf
-set scrolloff=5 "Buffer 4 lines while scrolling
+set scrolloff=5 "Buffer 5 lines while scrolling
 
 set textwidth=80 "Show past 80 characters
 set colorcolumn=+1
 
+"Show end of line char
+set listchars=eol:¬
+set spell
 
 " set leader key
 let mapleader = ","
@@ -86,6 +98,7 @@ map <C-d> <Esc>:bd<CR>
 map <C-x> <Esc>:b#<bar>bd#<CR>
 " Ag search files
 map <C-o> <Esc>:Ag<Space>
+
 
 "<c-l> clear the highlight as well as redraw
 nnoremap <C-L> :nohls<CR><C-L>
@@ -116,6 +129,7 @@ match ExtraWhitespace /\s\+$/
 
 " leader key fixes indentation
 :noremap <leader>i mzgg=G`z
+
 
 " CtrlP
 " ============================================================================
@@ -153,14 +167,8 @@ function! SetCursorPosition()
 endfunction
 
 "set to 256 color
-" let &t_Co=256
+let &t_Co=256
 
-set background=dark
-" solarized options 
-" let g:solarized_visibility = "high"
-" let g:solarized_contrast = "high"
-colorscheme solarized
-" colorscheme atom-dark
 
 map <F1> :e.<CR>
 nnoremap <F2> :set nonumber!<CR>
@@ -178,7 +186,36 @@ set undodir=/tmp " where to save undo histories
 set undolevels=1000         " How many undos
 set undoreload=10000        " number of lines to save for undo
 
-set path=$PWD/** " Set search path so it will look in project directory
-
 " Use deoplete.
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
+
+set path=$PWD/** " Set search path so it will look in project directory
+" When opening with 'gf' search for the file extension and add
+autocmd FileType <filetype> setl suffixesadd+=<exts>
+
+" :echo b:current_syntax Find out file syntax for associations
+augroup suffixes
+    autocmd!
+
+    let associations = [
+                \["javascript", ".js,.javascript,.es,.esx,.json"],
+                \["html", ".html"]
+                \]
+
+    for ft in associations
+        execute "autocmd FileType " . ft[0] . " setlocal suffixesadd=" . ft[1]
+    endfor
+augroup END
+
+" Cursor configuration {{{
+" ====================================================================
+" Use a blinking upright bar cursor in Insert mode, a solid block in normal
+" and a blinking underline in replace mode
+  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+  let &t_SI = "\<Esc>[5 q"
+  let &t_SR = "\<Esc>[3 q"
+  let &t_EI = "\<Esc>[2 q"
+" }}}
+
+"Fold function
+map <leader>f <Esc>:execute "normal! V$%zf"<CR>
