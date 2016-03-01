@@ -11,7 +11,6 @@ Plug 'joshdick/onedark.vim'
 Plug 'kien/ctrlp.vim'                      " Fuzzy finder
 Plug 'tpope/vim-commentary'
 
-"Plug 'fatih/vim-go'                        " Go development plugin
 Plug 'majutsushi/tagbar'                   " class outline viewer
 
 " snippets (all 4 needed)
@@ -33,6 +32,18 @@ Plug 'airblade/vim-gitgutter'       " Show +- git diff
 
 " Plug 'Shougo/deoplete.nvim'         "auto complete
 
+" Go stuff
+Plug 'fatih/vim-go'
+ au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+ au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+ let g:go_auto_type_info = 1
+ let g:go_highlight_functions = 1
+ let g:go_highlight_methods = 1
+ let g:go_highlight_structs = 1
+ let g:go_highlight_operators = 1
+ let g:go_highlight_build_constraints = 1
+ " add missing imports on save
+ let g:go_fmt_command = "goimports"
 call plug#end()
 
 " vundle stuff? maybe not needed anymore
@@ -51,6 +62,8 @@ colorscheme onedark
 
 " everything I copy goes to the system's clipboard
 set clipboard=unnamed
+" update file automatically when written from somewhere else
+set autoread
 
 :imap jj <Esc>
 :imap kk <Esc>
@@ -85,10 +98,11 @@ set colorcolumn=+1
 "Show end of line char
 set listchars=eol:¬
 set spell
+setlocal spell spelllang=en_us
 
 " set leader key
-let mapleader = ","
-let maplocalleader = ","
+let mapleader = " "
+let maplocalleader = " "
 
 " buffers ctrl + jkl
 map <C-j> <Esc>:bp<CR>
@@ -130,6 +144,10 @@ match ExtraWhitespace /\s\+$/
 " leader key fixes indentation
 :noremap <leader>i mzgg=G`z
 
+" save with enter key
+nnoremap <unique> <CR> :w<CR>
+" Don't save on location list
+au FileType qf nnoremap <buffer> <Enter> <Enter>
 
 " CtrlP
 " ============================================================================
