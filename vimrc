@@ -34,8 +34,11 @@ Plug 'airblade/vim-gitgutter'       " Show +- git diff
 
 " Go stuff
 Plug 'fatih/vim-go'
- au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
- au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+ " au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
+ au FileType go nmap <Leader>gd <Plug>(go-doc-browser)
+ au FileType go nmap <leader>gr <Plug>(go-run)
+ au FileType go nmap <leader>gb <Plug>(go-build)
+ au FileType go nmap <leader>gx <Plug>(go-build) <Plug>(go-run)
  let g:go_auto_type_info = 1
  let g:go_highlight_functions = 1
  let g:go_highlight_methods = 1
