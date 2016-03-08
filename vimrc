@@ -124,8 +124,11 @@ inoremap <C-L> <C-O>:nohls<CR>
 " Show extra space in red
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
-"
-" remove whitespace with ,w
+
+" paste from 0 register
+nnoremap P "0p
+
+" remove whitespace with w
 :noremap <leader>w :%s/\s\+$//<CR>
 
 " create splits
