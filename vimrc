@@ -1,3 +1,23 @@
+" This is a cool title foobar {{{
+" :nnoremap <Leader>s :%s/\<<C-r><C-w>\>/
+" }}}
+"
+" nnoremap <Leader>f :call ToggleFold()<CR>
+
+" function! ToggleFold()
+"    if &foldlevel == 0
+"      exe "normal zR"
+"    else
+"      exe "normal zM"
+"    endif
+" endfunction
+
+"Leader + key {{{
+"
+" s horizontal split
+"
+"}}}
+
 " Vundle setup
 " ============================================================================
 " to install: vim +PlugInstall +qall
@@ -35,7 +55,7 @@ Plug 'airblade/vim-gitgutter'       " Show +- git diff
 " Go stuff
 Plug 'fatih/vim-go'
  " au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
- au FileType go nmap <Leader>gd <Plug>(go-doc-browser)
+ " au FileType go nmap <Leader>gd <Plug>(go-doc-browser)
  au FileType go nmap <leader>gr <Plug>(go-run)
  au FileType go nmap <leader>gb <Plug>(go-build)
  au FileType go nmap <leader>gx <Plug>(go-build) <Plug>(go-run)
@@ -56,7 +76,7 @@ call plug#end()
 filetype plugin indent on
 syntax enable
 
-set background=dark
+set background=light
 " solarized options
 " let g:solarized_visibility = "high"
 " let g:solarized_contrast = "high"
@@ -87,11 +107,12 @@ set laststatus=1
 set cursorline
 set number
 set hidden     " allow no write movement b/w buffers
+set splitbelow " open splits in more natural order
+set splitright
 
 set hlsearch   " highlight search
 set ignorecase " Ignore case when searching
 set smartcase  " Ignore case when searching lowercase
-
 set backspace=2 "Allow backspace, wtf
 set scrolloff=5 "Buffer 5 lines while scrolling
 
@@ -151,7 +172,7 @@ nnoremap P "0p
 :noremap <leader>i mzgg=G`z
 
 " save with enter key
-nnoremap <unique> <CR> :w<CR>
+nnoremap <unique> <CR> :up<CR>
 " Don't save on location list
 au FileType qf nnoremap <buffer> <Enter> <Enter>
 
@@ -242,4 +263,4 @@ augroup END
 " }}}
 
 "Fold function
-map <leader>f <Esc>:execute "normal! V$%zf"<CR>
+" map <leader>f <Esc>:execute "normal! V$%zf"<CR>
